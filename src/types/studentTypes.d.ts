@@ -15,6 +15,8 @@ type Student = {
   currentAverage: number;
 };
 
+type StudentManager = Record<string, Student>;
+
 type NewStudentRequest = {
   name: string;
   weights: CourseGrades;
