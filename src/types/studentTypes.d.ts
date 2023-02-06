@@ -32,3 +32,7 @@ type FinalGrade = {
 };
 
 type FinalExamScores = Record<string, number>;
+
+type StudentNameParam = {
+  studentName: string;
+};

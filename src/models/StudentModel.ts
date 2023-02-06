@@ -36,7 +36,7 @@ function addStudent(newStudentData: NewStudentRequest): boolean {
 
 function getStudent(studentName: string): Student | undefined {
   // If the student's name is not in 'students'
-  if (studentName in students) {
+  if (!(studentName in students)) {
     return undefined; // exit the function immediately
   }
 

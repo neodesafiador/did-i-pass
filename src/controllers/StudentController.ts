@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-// import { students, addStudent, getStudent } from '../models/StudentModel';
-import { students, addStudent } from '../models/StudentModel';
+import { students, addStudent, getStudent } from '../models/StudentModel';
 
 function getAllStudents(req: Request, res: Response): void {
   res.json(students);
@@ -33,4 +32,15 @@ function createNewStudent(req: Request, res: Response): void {
   }
 }
 
-export default { getAllStudents, createNewStudent };
+function getStudentByName(req: Request, res: Response): void {
+  const { studentName } = req.params as StudentNameParam;
+  const student = getStudent(studentName);
+
+  if (!student) {
+    res.sendStatus(404); // 404 Not Found - student was not in the dataset
+  }
+
+  res.json(student);
+}
+
+export default { getAllStudents, createNewStudent, getStudentByName };
