@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import chalk from 'chalk';
 import { notImplemented } from './controllers/NotImplementedController';
 import StudentController from './controllers/StudentController';
 
@@ -15,5 +16,5 @@ app.post('/api/students/:studentName/finalExam', notImplemented);
 app.post('/api/students/:studentName/grade/:assignmentName', notImplemented);
 
 app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
+  console.log(`Server listening on ${chalk.underline.cyanBright(`http://localhost:${PORT}`)}`);
 });
