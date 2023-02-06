@@ -6,7 +6,7 @@ type CourseGrades = {
 type CourseGrade = {
   name: string;
   weight: number;
-  grade: string;
+  grade: number;
 };
 
 type Student = {
