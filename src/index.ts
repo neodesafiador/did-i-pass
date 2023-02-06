@@ -5,8 +5,11 @@ import StudentController from './controllers/StudentController';
 const app: Express = express();
 const PORT = 8091;
 
-app.post('/api/students', StudentController.getStudent);
-app.get('/api/students/:studentName', notImplemented);
+// Enable JSON Request body parsing
+app.use(express.json());
+
+app.post('/api/students', StudentController.createNewStudent);
+app.get('/api/students/:studentName', StudentController.getAllStudents);
 app.get('/api/students/:studentName/finalExam', notImplemented);
 app.post('/api/students/:studentName/finalExam', notImplemented);
 app.post('/api/students/:studentName/grade/:assignmentName', notImplemented);
