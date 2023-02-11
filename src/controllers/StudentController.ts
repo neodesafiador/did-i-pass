@@ -1,5 +1,11 @@
 import { Request, Response } from 'express';
-import { students, addStudent, getStudent, calculateFinalExamScore } from '../models/StudentModel';
+import {
+  students,
+  addStudent,
+  getStudent,
+  calculateFinalExamScore,
+  getLetterGrade,
+} from '../models/StudentModel';
 
 function getAllStudents(req: Request, res: Response): void {
   res.json(students);
@@ -78,4 +84,37 @@ function getFinalExamScores(req: Request, res: Response): void {
   res.json(finalData);
 }
 
-export default { getAllStudents, createNewStudent, getStudentByName, getFinalExamScores };
+function calcFinalScore(req: Request, res: Response): void {
+  // TODO: Get the student name from the path params
+  const { studentName } = req.params as StudentNameParam;
+
+  // TODO: Get the student's data from the dataset
+  const student = getStudent(studentName);
+
+  if (!student) {
+    res.sendStatus(404);
+    return;
+  }
+
+  // TODO: Get the grade data from the request body as the `AssignmentGrade` type
+  const gradeData = req.body as AssignmentGrade;
+  // TODO: Get the current average and weights from the student's data
+  const currAverage = student.currentAverage;
+  const weightData = student.weights.finalExamWeight;
+
+  // TODO: Calculate the final score that would receive using their current average and the hypothetical final exam grade.
+  const overallScore = (currAverage * (100 - weightData) + gradeData.grade * weightData) / 100;
+  // TODO: Get the letter grade they would receive given this score
+  const letterGrade = getLetterGrade(overallScore);
+
+  // TODO: Send back a JSON response containing their `overallScore` and `letterGrade.
+  res.json({ overallScore, letterGrade });
+}
+
+export default {
+  getAllStudents,
+  createNewStudent,
+  getStudentByName,
+  getFinalExamScores,
+  calcFinalScore,
+};
