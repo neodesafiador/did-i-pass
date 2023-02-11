@@ -31,7 +31,12 @@ type FinalGrade = {
   letterGrade: string;
 };
 
-type FinalExamScores = Record<string, number>;
+type FinalExamScores = {
+  neededForA: number;
+  neededForB: number;
+  neededForC: number;
+  neededForD: number;
+};
 
 type StudentNameParam = {
   studentName: string;

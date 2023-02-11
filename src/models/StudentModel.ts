@@ -1,15 +1,13 @@
 const students: StudentManager = {};
 
 function calculateAverage(weights: CourseGrades): number {
-  let subtotal = 0;
-  let count = 0;
+  let total = 0;
 
-  for (const assignment of weights.assignmentWeights) {
-    subtotal += assignment.weight;
-    count += 1;
+  for (const grade of weights.assignmentWeights) {
+    total += (grade.grade * grade.weight) / (100 - weights.finalExamWeight);
   }
 
-  return subtotal / count;
+  return total;
 }
 
 function addStudent(newStudentData: NewStudentRequest): boolean {
@@ -44,4 +42,15 @@ function getStudent(studentName: string): Student | undefined {
   return students[studentName];
 }
 
-export { students, addStudent, getStudent };
+function calculateFinalExamScore(
+  currentAverage: number,
+  finalExamWeight: number,
+  targetScore: number
+): number {
+  // TODO: Calculate the final exam score needed to get the targetScore in the class
+  let needScore = (100 * targetScore - currentAverage * (100 - finalExamWeight)) / finalExamWeight;
+  needScore = Math.floor(needScore * 100) / 100;
+  return needScore;
+}
+
+export { students, addStudent, getStudent, calculateFinalExamScore };
