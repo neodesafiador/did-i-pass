@@ -1,5 +1,5 @@
 type CourseGrades = {
-  assignmentWeights: array<CourseGrade>;
+  assignmentWeights: Array<CourseGrade>;
   finalExamWeight: number;
 };
 
@@ -40,4 +40,9 @@ type FinalExamScores = {
 
 type StudentNameParam = {
   studentName: string;
+};
+
+type GradeUpdateParams = {
+  studentName: string;
+  assignmentName: string;
 };

@@ -47,14 +47,14 @@ function calculateFinalExamScore(
   finalExamWeight: number,
   targetScore: number
 ): number {
-  // TODO: Calculate the final exam score needed to get the targetScore in the class
+  // Calculate the final exam score needed to get the targetScore in the class
   let needScore = (100 * targetScore - currentAverage * (100 - finalExamWeight)) / finalExamWeight;
   needScore = Math.floor(needScore * 100) / 100;
   return needScore;
 }
 
 function getLetterGrade(score: number): string {
-  // TODO: Return the appropriate letter grade
+  // Return the appropriate letter grade
   let letterGrade = '';
   if (score >= 90) {
     letterGrade = 'A';
@@ -69,4 +69,38 @@ function getLetterGrade(score: number): string {
   return letterGrade;
 }
 
-export { students, addStudent, getStudent, calculateFinalExamScore, getLetterGrade };
+function updateStudentGrade(
+  studentName: string,
+  assignmentName: string,
+  newGrade: number
+): boolean {
+  const student = getStudent(studentName);
+
+  if (!student) {
+    return false;
+  }
+
+  // Search the student's `assignmentWeights` and find the assignment with the matching name using the .find() method
+  const assignment = student.weights.assignmentWeights.find(({ name }) => name === assignmentName);
+
+  if (!assignment) {
+    return false;
+  }
+  // Set the assignment's grade to the newGrade
+  assignment.grade = newGrade;
+
+  // Then recalculate the student's currentAverage
+  student.currentAverage = calculateAverage(student.weights);
+
+  // return true since the update completed successfully
+  return true;
+}
+
+export {
+  students,
+  addStudent,
+  getStudent,
+  calculateFinalExamScore,
+  getLetterGrade,
+  updateStudentGrade,
+};
